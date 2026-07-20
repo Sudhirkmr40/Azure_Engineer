@@ -8,10 +8,10 @@
 			"server": "DESKTOP-KLGM537",
 			"database": "MIGRATION",
 			"encrypt": "mandatory",
-			"trustServerCertificate": false,
+			"trustServerCertificate": true,
 			"authenticationType": "SQL",
 			"userName": "DESKTOP-KLGM537",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5MTY3YTE5NC01MDc3LTRhZGQtOGUzMC1lYjJlN2FhNGNiZWEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0ZThjMzAzNS00YmE1LTQzOTAtYjRkZi1iNTJlN2IwOWM0Y2YiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "DESKTOP-KLGM537",
