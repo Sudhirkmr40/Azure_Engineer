@@ -1,0 +1,63 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "shivanshfactory11"
+		},
+		"SqlServer1_password": {
+			"value": ""
+		},
+		"SqlServer2_password": {
+			"value": ""
+		},
+		"SqlServer3_password": {
+			"value": ""
+		},
+		"SqlServer_ssms_password": {
+			"value": ""
+		},
+		"SqlServer1_properties_typeProperties_server": {
+			"value": "DESKTOP-KLGM537"
+		},
+		"SqlServer1_properties_typeProperties_database": {
+			"value": "MIGRATION"
+		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"value": "DESKTOP-KLGM537\\abc"
+		},
+		"SqlServer2_properties_typeProperties_server": {
+			"value": "DESKTOP-KLGM537"
+		},
+		"SqlServer2_properties_typeProperties_database": {
+			"value": "MIGRATION"
+		},
+		"SqlServer2_properties_typeProperties_userName": {
+			"value": "DESKTOP-KLGM537"
+		},
+		"SqlServer3_properties_typeProperties_server": {
+			"value": "DESKTOP-KLGM537"
+		},
+		"SqlServer3_properties_typeProperties_database": {
+			"value": "MIGRATION"
+		},
+		"SqlServer3_properties_typeProperties_userName": {
+			"value": "DESKTOP-KLGM537"
+		},
+		"SqlServer_ssms_properties_typeProperties_server": {
+			"value": "DESKTOP-KLGM537"
+		},
+		"SqlServer_ssms_properties_typeProperties_database": {
+			"value": "MIGRATION"
+		},
+		"SqlServer_ssms_properties_typeProperties_userName": {
+			"value": "sa"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
