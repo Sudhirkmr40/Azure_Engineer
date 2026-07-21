@@ -1,5 +1,5 @@
 {
-	"name": "childpipeline",
+	"name": "Child Pipeline Incremental",
 	"properties": {
 		"activities": [
 			{
@@ -33,7 +33,7 @@
 				}
 			},
 			{
-				"name": "if_new_record_exist",
+				"name": "IF_NEW_RECORD_EXISTS",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
