@@ -119,7 +119,10 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"DirectoryName": "@pipeline().parameters.TableName",
-										"FileName": "@concat(pipeline().parameters.TableName, '_', activity('LKUP_MAX_WATERMARK').output.firstRow.NewWatermarkvalue, '.parquet')"
+										"FileName": {
+											"value": "@concat(pipeline().parameters.TableName, '_', activity('LKUP_MAX_WATERMARK').output.firstRow.MaxValue, '.parquet')",
+											"type": "Expression"
+										}
 									}
 								}
 							]
