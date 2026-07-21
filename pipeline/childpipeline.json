@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT MAX(@{pipeline().parameters.WatermarkColumn}) AS MaxValue\nFROM @{pipeline().parameters.TableSchema}.@{pipeline().parameters.TableName}\n",
+						"sqlReaderQuery": "@concat('SELECT MAX(', pipeline().parameters.WatermarkColumn, ') AS MaxValue FROM ', pipeline().parameters.TableSchema, '.', pipeline().parameters.TableName)",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -52,7 +52,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@or(equals(pipeline().parameters.LastLoadValue, null), greater(int(activity('LKUP_MAX_VALUE').output.firstRow.MaxValue), int(pipeline().parameters.LastLoadValue)))",
+						"value": "@or(equals(pipeline().parameters.LastLoadValue, null), greater(activity('LKUP_MAX_WATERMARK').output.firstRow.MaxValue, pipeline().parameters.LastLoadValue))",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -122,7 +122,7 @@
 							]
 						},
 						{
-							"name": "Stored Procedure",
+							"name": "SP-UPDT_WTMRMK",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -153,7 +153,10 @@
 										"value": "@pipeline().parameters.WatermarkColumn"
 									},
 									"LastLoadValue": {
-										"value": "@activity('LKUP_MAX_WATERMARK').output.firstRow.NewWatermarkvalue"
+										"value": {
+											"value": "@activity('LKUP_MAX_WATERMARK').output.firstRow.MaxValue",
+											"type": "Expression"
+										}
 									}
 								}
 							},
