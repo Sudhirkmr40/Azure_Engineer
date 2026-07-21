@@ -72,7 +72,7 @@
 								"source": {
 									"type": "SqlServerSource",
 									"sqlReaderQuery": {
-										"value": "@concat(pipeline().parameters.TableName, '_', activity('LKUP_MAX_WATERMARK').output.firstRow.MaxValue, '.parquet')",
+										"value": "@concat('SELECT * FROM ', pipeline().parameters.TableSchema, '.', pipeline().parameters.TableName, ' WHERE ', pipeline().parameters.WatermarkColumn, ' > ''', pipeline().parameters.LastLoadValue, ''' AND ', pipeline().parameters.WatermarkColumn, ' <= ''', activity('LKUP_MAX_WATERMARK').output.firstRow.MaxValue, '''')",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
