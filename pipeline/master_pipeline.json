@@ -57,7 +57,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "childpipeline",
+									"referenceName": "Child Pipeline Incremental",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
