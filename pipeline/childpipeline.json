@@ -17,25 +17,16 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": {
-							"value": "SELECT MAX(@{pipeline().parameters.WatermarkColumn}) AS MaxValue\nFROM @{pipeline().parameters.TableSchema}.@{pipeline().parameters.TableName}\n",
-							"type": "Expression"
-						},
+						"sqlReaderQuery": "SELECT MAX(@{pipeline().parameters.WatermarkColumn}) AS MaxValue\nFROM @{pipeline().parameters.TableSchema}.@{pipeline().parameters.TableName}\n",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "SqlServerTable1",
+						"referenceName": "DS_LUKUP_MAX_VALUE",
 						"type": "DatasetReference",
 						"parameters": {
-							"schemaname": {
-								"value": "@pipeline().parameters.TableSchema",
-								"type": "Expression"
-							},
-							"tablename": {
-								"value": "@pipeline().parameters.TableName",
-								"type": "Expression"
-							}
+							"schemaname": "@{pipeline().parameters.TableSchema}.@{",
+							"tablename": "@{pipeline().parameters.TableName}"
 						}
 					},
 					"firstRowOnly": true
@@ -100,17 +91,7 @@
 							"inputs": [
 								{
 									"referenceName": "SqlServerTable1",
-									"type": "DatasetReference",
-									"parameters": {
-										"schemaname": {
-											"value": "@pipeline().parameters.TableSchema",
-											"type": "Expression"
-										},
-										"tablename": {
-											"value": "@pipeline().parameters.TableName",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
