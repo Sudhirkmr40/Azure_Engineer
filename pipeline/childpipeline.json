@@ -90,8 +90,18 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "SqlServerTable1",
-									"type": "DatasetReference"
+									"referenceName": "DS_LUKUP_MAX_VALUE",
+									"type": "DatasetReference",
+									"parameters": {
+										"schemaname": {
+											"value": "@pipeline().parameters.TableSchema",
+											"type": "Expression"
+										},
+										"tablename": {
+											"value": "@pipeline().parameters.TableName",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
