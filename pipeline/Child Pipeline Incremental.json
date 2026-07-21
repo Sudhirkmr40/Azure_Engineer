@@ -51,7 +51,7 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Copy data1",
+							"name": "Copy data",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -116,7 +116,7 @@
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
-									"activity": "Copy data1",
+									"activity": "Copy data",
 									"dependencyConditions": [
 										"Succeeded"
 									]
