@@ -42,7 +42,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('lookup_control_table').output",
+						"value": "@activity('lookup_control_table').output.value",
 						"type": "Expression"
 					},
 					"activities": [
