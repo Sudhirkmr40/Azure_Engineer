@@ -1,5 +1,5 @@
 {
-	"name": "ls_sql_telecom_source",
+	"name": "ds_sql_fact_calls",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_sql_telecom_source",
