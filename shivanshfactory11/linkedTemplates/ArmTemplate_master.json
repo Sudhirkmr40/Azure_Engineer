@@ -7,67 +7,27 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "shivanshfactory11"
 		},
-		"SqlServer1_password": {
+		"ls_adls_telecom_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServer1'"
+			"metadata": "Secure string for 'accountKey' of 'ls_adls_telecom'"
 		},
-		"SqlServer2_password": {
+		"ls_sql_telecom_source_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServer2'"
+			"metadata": "Secure string for 'password' of 'ls_sql_telecom_source'"
 		},
-		"SqlServer3_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServer3'"
+		"ls_adls_telecom_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://telecomstorage12.dfs.core.windows.net/"
 		},
-		"SqlServer_ssms_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServer_ssms'"
-		},
-		"SqlServer1_properties_typeProperties_server": {
+		"ls_sql_telecom_source_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "DESKTOP-KLGM537"
 		},
-		"SqlServer1_properties_typeProperties_database": {
+		"ls_sql_telecom_source_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "MIGRATION"
+			"defaultValue": "TelecomDB"
 		},
-		"SqlServer1_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537\\abc"
-		},
-		"SqlServer2_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537"
-		},
-		"SqlServer2_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "MIGRATION"
-		},
-		"SqlServer2_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537"
-		},
-		"SqlServer3_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537"
-		},
-		"SqlServer3_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "MIGRATION"
-		},
-		"SqlServer3_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537"
-		},
-		"SqlServer_ssms_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537"
-		},
-		"SqlServer_ssms_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "MIGRATION"
-		},
-		"SqlServer_ssms_properties_typeProperties_userName": {
+		"ls_sql_telecom_source_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "sa"
 		},
@@ -98,53 +58,23 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"SqlServer1_password": {
-						"value": "[parameters('SqlServer1_password')]"
+					"ls_adls_telecom_accountKey": {
+						"value": "[parameters('ls_adls_telecom_accountKey')]"
 					},
-					"SqlServer2_password": {
-						"value": "[parameters('SqlServer2_password')]"
+					"ls_sql_telecom_source_password": {
+						"value": "[parameters('ls_sql_telecom_source_password')]"
 					},
-					"SqlServer3_password": {
-						"value": "[parameters('SqlServer3_password')]"
+					"ls_adls_telecom_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_telecom_properties_typeProperties_url')]"
 					},
-					"SqlServer_ssms_password": {
-						"value": "[parameters('SqlServer_ssms_password')]"
+					"ls_sql_telecom_source_properties_typeProperties_server": {
+						"value": "[parameters('ls_sql_telecom_source_properties_typeProperties_server')]"
 					},
-					"SqlServer1_properties_typeProperties_server": {
-						"value": "[parameters('SqlServer1_properties_typeProperties_server')]"
+					"ls_sql_telecom_source_properties_typeProperties_database": {
+						"value": "[parameters('ls_sql_telecom_source_properties_typeProperties_database')]"
 					},
-					"SqlServer1_properties_typeProperties_database": {
-						"value": "[parameters('SqlServer1_properties_typeProperties_database')]"
-					},
-					"SqlServer1_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServer1_properties_typeProperties_userName')]"
-					},
-					"SqlServer2_properties_typeProperties_server": {
-						"value": "[parameters('SqlServer2_properties_typeProperties_server')]"
-					},
-					"SqlServer2_properties_typeProperties_database": {
-						"value": "[parameters('SqlServer2_properties_typeProperties_database')]"
-					},
-					"SqlServer2_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServer2_properties_typeProperties_userName')]"
-					},
-					"SqlServer3_properties_typeProperties_server": {
-						"value": "[parameters('SqlServer3_properties_typeProperties_server')]"
-					},
-					"SqlServer3_properties_typeProperties_database": {
-						"value": "[parameters('SqlServer3_properties_typeProperties_database')]"
-					},
-					"SqlServer3_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServer3_properties_typeProperties_userName')]"
-					},
-					"SqlServer_ssms_properties_typeProperties_server": {
-						"value": "[parameters('SqlServer_ssms_properties_typeProperties_server')]"
-					},
-					"SqlServer_ssms_properties_typeProperties_database": {
-						"value": "[parameters('SqlServer_ssms_properties_typeProperties_database')]"
-					},
-					"SqlServer_ssms_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServer_ssms_properties_typeProperties_userName')]"
+					"ls_sql_telecom_source_properties_typeProperties_userName": {
+						"value": "[parameters('ls_sql_telecom_source_properties_typeProperties_userName')]"
 					}
 				}
 			},

@@ -7,67 +7,27 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "shivanshfactory11"
 		},
-		"SqlServer1_password": {
+		"ls_adls_telecom_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServer1'"
+			"metadata": "Secure string for 'accountKey' of 'ls_adls_telecom'"
 		},
-		"SqlServer2_password": {
+		"ls_sql_telecom_source_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServer2'"
+			"metadata": "Secure string for 'password' of 'ls_sql_telecom_source'"
 		},
-		"SqlServer3_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServer3'"
+		"ls_adls_telecom_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://telecomstorage12.dfs.core.windows.net/"
 		},
-		"SqlServer_ssms_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServer_ssms'"
-		},
-		"SqlServer1_properties_typeProperties_server": {
+		"ls_sql_telecom_source_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "DESKTOP-KLGM537"
 		},
-		"SqlServer1_properties_typeProperties_database": {
+		"ls_sql_telecom_source_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "MIGRATION"
+			"defaultValue": "TelecomDB"
 		},
-		"SqlServer1_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537\\abc"
-		},
-		"SqlServer2_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537"
-		},
-		"SqlServer2_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "MIGRATION"
-		},
-		"SqlServer2_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537"
-		},
-		"SqlServer3_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537"
-		},
-		"SqlServer3_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "MIGRATION"
-		},
-		"SqlServer3_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537"
-		},
-		"SqlServer_ssms_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "DESKTOP-KLGM537"
-		},
-		"SqlServer_ssms_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "MIGRATION"
-		},
-		"SqlServer_ssms_properties_typeProperties_userName": {
+		"ls_sql_telecom_source_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "sa"
 		}
@@ -77,19 +37,231 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/sql_ssms')]",
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "lookup_control_table",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": "SELECT * FROM pipeline_control WHERE is_active = 1",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ds_control_table",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "lookup_control_table",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('lookup_control_table').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "SqlServerSource",
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_sql_generic_source",
+											"type": "DatasetReference",
+											"parameters": {
+												"p_schema": {
+													"value": "@item().source_schema",
+													"type": "Expression"
+												},
+												"p_table": {
+													"value": "@item().source_table    ",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_bronze_generic_sink",
+											"type": "DatasetReference",
+											"parameters": {
+												"p_folder": {
+													"value": "@item().sink_folder",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_control_table')]",
+				"[concat(variables('factoryId'), '/datasets/ds_sql_generic_source')]",
+				"[concat(variables('factoryId'), '/datasets/ds_bronze_generic_sink')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_bronze_generic_sink')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "SqlServer_ssms",
+					"referenceName": "ls_adls_telecom",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
-					"DS_TableSchema": {
+					"p_folder": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@dataset().p_folder",
+							"type": "Expression"
+						},
+						"fileSystem": "bronze"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_telecom')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_control_table')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_telecom_source",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "table_id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "source_schema",
+						"type": "varchar"
+					},
+					{
+						"name": "source_table",
+						"type": "varchar"
+					},
+					{
+						"name": "sink_folder",
+						"type": "varchar"
+					},
+					{
+						"name": "is_active",
+						"type": "bit"
+					},
+					{
+						"name": "load_type",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "pipeline_control"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_telecom_source')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_generic_source')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_telecom_source",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"p_schema": {
 						"type": "string"
 					},
-					"DS_TableName": {
+					"p_table": {
 						"type": "string"
 					}
 				},
@@ -98,120 +270,53 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": {
-						"value": "@dataset().DS_TableSchema",
+						"value": "@dataset().p_schema",
 						"type": "Expression"
 					},
 					"table": {
-						"value": "@dataset().DS_TableName",
+						"value": "@dataset().p_table",
 						"type": "Expression"
 					}
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServer_ssms')]"
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_telecom_source')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SqlServer1')]",
+			"name": "[concat(parameters('factoryName'), '/ls_adls_telecom')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"type": "SqlServer",
+				"type": "AzureBlobFS",
 				"typeProperties": {
-					"server": "[parameters('SqlServer1_properties_typeProperties_server')]",
-					"database": "[parameters('SqlServer1_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": false,
-					"authenticationType": "Windows",
-					"userName": "[parameters('SqlServer1_properties_typeProperties_userName')]",
-					"password": {
+					"url": "[parameters('ls_adls_telecom_properties_typeProperties_url')]",
+					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('SqlServer1_password')]"
+						"value": "[parameters('ls_adls_telecom_accountKey')]"
 					}
-				},
-				"connectVia": {
-					"referenceName": "DESKTOP-KLGM537",
-					"type": "IntegrationRuntimeReference"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/DESKTOP-KLGM537')]"
-			]
+			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SqlServer2')]",
+			"name": "[concat(parameters('factoryName'), '/ls_sql_telecom_source')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
 				"type": "SqlServer",
 				"typeProperties": {
-					"server": "[parameters('SqlServer2_properties_typeProperties_server')]",
-					"database": "[parameters('SqlServer2_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": false,
-					"authenticationType": "Windows",
-					"userName": "[parameters('SqlServer2_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('SqlServer2_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "DESKTOP-KLGM537",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/DESKTOP-KLGM537')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServer3')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"server": "[parameters('SqlServer3_properties_typeProperties_server')]",
-					"database": "[parameters('SqlServer3_properties_typeProperties_database')]",
+					"server": "[parameters('ls_sql_telecom_source_properties_typeProperties_server')]",
+					"database": "[parameters('ls_sql_telecom_source_properties_typeProperties_database')]",
 					"encrypt": "mandatory",
 					"trustServerCertificate": true,
 					"authenticationType": "SQL",
-					"userName": "[parameters('SqlServer3_properties_typeProperties_userName')]",
+					"userName": "[parameters('ls_sql_telecom_source_properties_typeProperties_userName')]",
 					"password": {
 						"type": "SecureString",
-						"value": "[parameters('SqlServer3_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "DESKTOP-KLGM537",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/DESKTOP-KLGM537')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServer_ssms')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"server": "[parameters('SqlServer_ssms_properties_typeProperties_server')]",
-					"database": "[parameters('SqlServer_ssms_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": true,
-					"authenticationType": "SQL",
-					"userName": "[parameters('SqlServer_ssms_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('SqlServer_ssms_password')]"
+						"value": "[parameters('ls_sql_telecom_source_password')]"
 					}
 				},
 				"connectVia": {

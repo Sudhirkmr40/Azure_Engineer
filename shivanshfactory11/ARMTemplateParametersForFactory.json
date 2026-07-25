@@ -5,52 +5,22 @@
 		"factoryName": {
 			"value": "shivanshfactory11"
 		},
-		"SqlServer1_password": {
+		"ls_adls_telecom_accountKey": {
 			"value": ""
 		},
-		"SqlServer2_password": {
+		"ls_sql_telecom_source_password": {
 			"value": ""
 		},
-		"SqlServer3_password": {
-			"value": ""
+		"ls_adls_telecom_properties_typeProperties_url": {
+			"value": "https://telecomstorage12.dfs.core.windows.net/"
 		},
-		"SqlServer_ssms_password": {
-			"value": ""
-		},
-		"SqlServer1_properties_typeProperties_server": {
+		"ls_sql_telecom_source_properties_typeProperties_server": {
 			"value": "DESKTOP-KLGM537"
 		},
-		"SqlServer1_properties_typeProperties_database": {
-			"value": "MIGRATION"
+		"ls_sql_telecom_source_properties_typeProperties_database": {
+			"value": "TelecomDB"
 		},
-		"SqlServer1_properties_typeProperties_userName": {
-			"value": "DESKTOP-KLGM537\\abc"
-		},
-		"SqlServer2_properties_typeProperties_server": {
-			"value": "DESKTOP-KLGM537"
-		},
-		"SqlServer2_properties_typeProperties_database": {
-			"value": "MIGRATION"
-		},
-		"SqlServer2_properties_typeProperties_userName": {
-			"value": "DESKTOP-KLGM537"
-		},
-		"SqlServer3_properties_typeProperties_server": {
-			"value": "DESKTOP-KLGM537"
-		},
-		"SqlServer3_properties_typeProperties_database": {
-			"value": "MIGRATION"
-		},
-		"SqlServer3_properties_typeProperties_userName": {
-			"value": "DESKTOP-KLGM537"
-		},
-		"SqlServer_ssms_properties_typeProperties_server": {
-			"value": "DESKTOP-KLGM537"
-		},
-		"SqlServer_ssms_properties_typeProperties_database": {
-			"value": "MIGRATION"
-		},
-		"SqlServer_ssms_properties_typeProperties_userName": {
+		"ls_sql_telecom_source_properties_typeProperties_userName": {
 			"value": "sa"
 		}
 	}
