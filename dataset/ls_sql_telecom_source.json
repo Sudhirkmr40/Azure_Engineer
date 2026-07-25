@@ -1,0 +1,12 @@
+{
+	"name": "ls_sql_telecom_source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sql_telecom_source",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
