@@ -5,6 +5,14 @@
 			"referenceName": "ls_sql_telecom_source",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"p_schema": {
+				"type": "string"
+			},
+			"p_table": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": [],
