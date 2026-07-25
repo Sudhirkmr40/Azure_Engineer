@@ -1,5 +1,5 @@
 {
-	"name": "ds_sql_fact_calls",
+	"name": "ds_sql_generic_source",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_sql_telecom_source",
@@ -17,8 +17,14 @@
 		"type": "SqlServerTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "dbo",
-			"table": "fact_calls"
+			"schema": {
+				"value": "@dataset().p_schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().p_table",
+				"type": "Expression"
+			}
 		}
 	}
 }
