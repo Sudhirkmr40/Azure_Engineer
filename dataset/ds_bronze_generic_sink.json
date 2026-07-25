@@ -1,5 +1,5 @@
 {
-	"name": "ds_bronze_fact_calls",
+	"name": "ds_bronze_generic_sink",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_adls_telecom",
@@ -14,7 +14,11 @@
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation"
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().p_folder",
+					"type": "Expression"
+				}
 			},
 			"compressionCodec": "snappy"
 		},
