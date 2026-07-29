@@ -1,15 +1,22 @@
 {
-	"name": "Parquet1",
+	"name": "ds_bronze_generic_sink",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_adls_telecom",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"folder": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation"
+				"type": "AzureBlobFSLocation",
+				"folderPath": "@item().sink_folder",
+				"fileSystem": "bronze"
 			},
 			"compressionCodec": "snappy"
 		},
