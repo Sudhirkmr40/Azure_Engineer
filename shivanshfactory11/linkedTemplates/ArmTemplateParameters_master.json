@@ -5,22 +5,22 @@
 		"factoryName": {
 			"value": "shivanshfactory11"
 		},
-		"ls_adls_telecom_accountKey": {
+		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
-		"ls_sql_telecom_source_password": {
+		"ls_sql_source_password": {
 			"value": ""
 		},
-		"ls_adls_telecom_properties_typeProperties_url": {
-			"value": "https://telecomstorage12.dfs.core.windows.net/"
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://shivanshstorage11.dfs.core.windows.net/"
 		},
-		"ls_sql_telecom_source_properties_typeProperties_server": {
+		"ls_sql_source_properties_typeProperties_server": {
 			"value": "DESKTOP-KLGM537"
 		},
-		"ls_sql_telecom_source_properties_typeProperties_database": {
+		"ls_sql_source_properties_typeProperties_database": {
 			"value": "TelecomDB"
 		},
-		"ls_sql_telecom_source_properties_typeProperties_userName": {
+		"ls_sql_source_properties_typeProperties_userName": {
 			"value": "sa"
 		},
 		"containerUri": {
