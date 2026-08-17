@@ -15,6 +15,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_sql_source'"
 		},
+		"LS_csv_cusotmers_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_csv_cusotmers'"
+		},
+		"LS_ADLS_CSV_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_CSV'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://shivanshstorage11.dfs.core.windows.net/"
@@ -30,6 +38,10 @@
 		"ls_sql_source_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "sa"
+		},
+		"LS_ADLS_CSV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://practicestorage111.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -61,11 +73,20 @@
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
+					"LS_csv_cusotmers_connectionString": {
+						"value": "[parameters('LS_csv_cusotmers_connectionString')]"
+					},
+					"LS_ADLS_CSV_accountKey": {
+						"value": "[parameters('LS_ADLS_CSV_accountKey')]"
+					},
 					"ls_sql_source_password": {
 						"value": "[parameters('ls_sql_source_password')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"LS_ADLS_CSV_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLS_CSV_properties_typeProperties_url')]"
 					},
 					"ls_sql_source_properties_typeProperties_server": {
 						"value": "[parameters('ls_sql_source_properties_typeProperties_server')]"
