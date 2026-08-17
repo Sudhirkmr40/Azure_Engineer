@@ -8,17 +8,20 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
-		"ls_sql_source_password": {
+		"LS_ADLS_CSV_accountKey": {
 			"value": ""
 		},
 		"LS_csv_cusotmers_connectionString": {
 			"value": ""
 		},
-		"LS_ADLS_CSV_accountKey": {
+		"ls_sql_source_password": {
 			"value": ""
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://shivanshstorage11.dfs.core.windows.net/"
+		},
+		"LS_ADLS_CSV_properties_typeProperties_url": {
+			"value": "https://practicestorage111.dfs.core.windows.net/"
 		},
 		"ls_sql_source_properties_typeProperties_server": {
 			"value": "DESKTOP-KLGM537"
@@ -28,9 +31,6 @@
 		},
 		"ls_sql_source_properties_typeProperties_userName": {
 			"value": "sa"
-		},
-		"LS_ADLS_CSV_properties_typeProperties_url": {
-			"value": "https://practicestorage111.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"value": ""
