@@ -4,7 +4,7 @@
 		"description": "COPY CSV FROM BLOB TO ADLS",
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "PL_CUSTOMER",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
